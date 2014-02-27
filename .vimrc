@@ -1,3 +1,12 @@
+execute pathogen#infect()
+filetype plugin indent on
+
+" On by default, turn it off for html
+let g:syntastic_mode_map = { 'mode': 'active',
+   \ 'active_filetypes': [],
+   \ 'passive_filetypes': ['html'] }
+
+
 " some stolen from greg
 
 set autoread        "Always reload buffer when external changes detected
@@ -188,4 +197,13 @@ endfunction
 
 inoremap <tab>   <c-r>=WordTabAsCompletion("forward")<cr>
 inoremap <s-tab> <c-r>=WordTabAsCompletion("backward")<cr>
+
+" ------ Folding  ------
+" http://smartic.us/2009/04/06/code-folding-in-vim/
+set foldmethod=indent
+set foldnestmax=10
+set foldlevel=1
+set nofoldenable        "dont fold by default
+
+set nomodeline    " don't use it. could be possible security issue
 
