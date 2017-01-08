@@ -1,6 +1,10 @@
-
-sudo apt install vim-fugitive vim-syntastic vim-youcompleteme python-flake8 sparse splint cppcheck
+sudo apt install meld gitk
+sudo apt install vim-fugitive vim-syntastic vim-youcompleteme flake8 sparse splint cppcheck
 
 vim-addons install syntastic
 vim-addons install fugitive
 #vim-addons install youcompleteme
+
+ln -s ~/configs/.vim* .
+ln -s ~/configs/.bashrc .
+
