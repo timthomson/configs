@@ -1,0 +1,6 @@
+
+sudo apt install vim-fugitive vim-syntastic vim-youcompleteme python-flake8 sparse splint cppcheck
+
+vim-addons install syntastic
+vim-addons install fugitive
+#vim-addons install youcompleteme

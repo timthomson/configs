@@ -1,4 +1,3 @@
-execute pathogen#infect()
 filetype plugin indent on
 
 " On by default, turn it off for html
@@ -6,6 +5,18 @@ let g:syntastic_mode_map = { 'mode': 'active',
    \ 'active_filetypes': [],
    \ 'passive_filetypes': ['html'] }
 
+set statusline+=%{fugitive#statusline()}
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+set laststatus=2
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:ycm_path_to_python_interpreter="/usr/bin/python"
 
 " some stolen from greg
 
@@ -34,6 +45,7 @@ set expandtab       "Convert all tabs that are typed to spaces
 set shiftwidth=4    "Indent/outdent by four columns
 set shiftround      "Indent/outdent to nearest tabstop
 set softtabstop=4
+set textwidth=72
 
 set wrapscan                        "Wrap searches around the end
 
@@ -48,18 +60,13 @@ set showmatch                       "Match my brackets
 
 set matchpairs+=<:>,«:»             "Match angle brackets too
 
-
 set comments-=s1:/*,mb:*,ex:*/      "Stars are not part of C comments
 set comments+=fb:*                  "Stars are bullets, wrap&indent accordingly
 
-
-"set background=dark                 "When guessing, guess bg is dark
+set background=dark                 "When guessing, guess bg is dark
 set t_Co=256                         " terminal colours = more
 let g:zenburn_high_Contrast=1
 colorscheme zenburn
-
-"set fileformats+=mac                "Handle Mac line-endings too
-
 
 set wildmode=list:longest,full      "Show list of completions
                                     "  and complete as much as possible,
@@ -67,19 +74,13 @@ set wildmode=list:longest,full      "Show list of completions
 
 set showmode                        "Show mode change messages
 
-
 set updatecount=15                  "Save buffer every 10 chars typed
-
-set textwidth=72
 
 set backup                          "Lets have backups
 
 set backupext=.bak
 
 set backupdir=./.backups,~/.backups,.,/tmp
-
-"FIXME set thesaurus+=~/Documents/thesaurus    "Add thesaurus file for ^X^T
-"FIXME set dictionary+=~/Documents/dictionary  "Add dictionary file for ^X^K
 
 set hlsearch                        "Highlight all search matches
 
@@ -94,71 +95,10 @@ set smartcase                       "...unless uppercase letters used
 
 set scrolloff=2                     "Scroll when 2 lines from top/bottom
 
-"======  Wiki  ======
-
-imap 111 <ESC>:call InsertAboveBelow("=","=")<CR>a
-imap 222 <ESC>:call InsertAboveBelow("","~")<CR>a
-imap 333 <ESC>:call InsertAboveBelow("","-")<CR>a
-
-" Insert new (or replace existing) before and after markers...
-function! InsertAboveBelow (above, below)
-   let linenum = line('.')
-   let line = getline('.')
-   if len(a:below)
-       if getline(linenum+1) =~ "^\\(\\V" . a:below . "\\m\\)\\+$"
-           call setline(linenum+1, substitute(line, ".", a:below, "g"))
-       else
-           call append(linenum, substitute(line, ".", a:below, "g"))
-       endif
-   endif
-   if len(a:above)
-       if getline(linenum-1) =~ "^\\(\\V" . a:above . "\\m\\)\\+$"
-           call setline(linenum-1, substitute(line, ".", a:above, "g"))
-       else
-           call append(linenum-1, substitute(line, ".", a:above, "g"))
-       endif
-   endif
-endfunction
-
-"======  S5 Presentations  ======
-
-iabbrev conh .. container:: handout
-iabbrev clah .. class:: handout
-iabbrev clinc .. class:: incremental
-
-imap --h ------   ------<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-imap ==h ======   ======<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-imap **h ******   ******<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-
-"=== Navigation ===
-"Navigation shortcuts, ^M is a carriage return, ctrl-v + enter
-
-"Remap q to just quit, because I always try to do it
-nmap q :q
-
-iabbrev idate :r! date
-
-" Forward/back one file...
-"map v :next0
-"map V :prev0
-
-" Swap back to alternate file...
-" Figure out how to swap back to last tab
-"map ;g  :w:e #
-
-"Turn off hlsearch
-nmap  :set invhlsearch
-
-"Don't know what this is...
-"nmap P ]p
-
-map  :set invpaste                      "Toggle paste mode.  Want to do both in insert and normal mode.
-
 "Setup a search and replace
 nmap ss :%s///gc<LEFT><LEFT><LEFT><LEFT>
 
 "============ Python ==============
-
 set wildignore=*.pyc                    "Ignore the compiled python files.
 
 " Format file with autoformat (capitalize to specify options)...
@@ -171,11 +111,6 @@ iab pritn print
 iab teh the
 iab liek like
 iab moer more
-
-" Insert shebang lines...
-iab hbs #! /bin/sh 
-iab hbb #! /bin/bash 
-iab hbp #! /usr/bin/env python
 
 " Use space to jump down a page (like browsers do)...
 noremap <Space> <PageDown>
