@@ -29,7 +29,7 @@ set history=10000                   "Lets have heaps of command history
 "To go back in time                     :earlier 10s
 "To go forward in time                  :later 10s
 "To show line numbers                   :set number
-"Insert something at the start of every line    Isomething<ESC>
+"Insert something at the start of every line    ^VIsomething<ESC>
 
 "================ Indenting ================
 
@@ -58,13 +58,13 @@ set backspace=indent,eol,start      "BS past autoindents, line boundaries,
 
 set showmatch                       "Match my brackets
 
-set matchpairs+=<:>,«:»             "Match angle brackets too
+set matchpairs+=<:>                 "Match angle brackets too
 
 set comments-=s1:/*,mb:*,ex:*/      "Stars are not part of C comments
 set comments+=fb:*                  "Stars are bullets, wrap&indent accordingly
 
 set background=dark                 "When guessing, guess bg is dark
-set t_Co=256                         " terminal colours = more
+set t_Co=256                        " terminal colours = more
 let g:zenburn_high_Contrast=1
 colorscheme zenburn
 
@@ -100,10 +100,6 @@ nmap ss :%s///gc<LEFT><LEFT><LEFT><LEFT>
 
 "============ Python ==============
 set wildignore=*.pyc                    "Ignore the compiled python files.
-
-" Format file with autoformat (capitalize to specify options)...
-map F !Gformat -T4 -
-map f !Gformat -T4:
 
 " Correct common mistypings in-the-fly...
 iab retrun return
